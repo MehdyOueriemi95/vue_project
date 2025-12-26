@@ -1,22 +1,45 @@
 import axios, { type AxiosResponse } from 'axios';
 
-const baseURL: string | undefined = import.meta.env.VITE_API_BASE_URL;
+// En développement, utilise le proxy Vite pour contourner CORS
+// En production, utilise l'URL complète de l'API
+const baseURL: string | undefined = import.meta.env.DEV
+  ? '/api' // Proxy Vite en développement
+  : import.meta.env.VITE_API_CRUD_TEST || 'https://api-pour-apprendre.fr/api/v1';
+
+// Log pour déboguer l'URL de base utilisée
+if (import.meta.env.DEV) {
+  console.log('[httpClientCrud] Mode développement - baseURL:', baseURL);
+}
 
 if (!baseURL) {
   // Format commun: le SDK reste utilisable mais loggue un warning en dev
-  // Pense à définir VITE_API_BASE_URL dans ton fichier .env à la racine du projet.
+  // Pense à définir VITE_API_CRUD_TEST dans ton fichier .env à la racine du projet.
   console.warn(
-    '[SDK] VITE_API_BASE_URL est manquant. Les appels HTTP risquent d’échouer.',
+    '[SDK] VITE_API_CRUD_TEST est manquant. Les appels HTTP risquent d\'échouer.',
   );
 }
 
 // Instance Axios partagée par tout le SDK
-const httpClient = axios.create({
+const httpClientCrud = axios.create({
   baseURL,
   headers: {
     'Content-Type': 'application/json'
   }
 });
+
+// Intercepteur de requête pour déboguer les URLs appelées
+httpClientCrud.interceptors.request.use(
+  (config) => {
+    const fullUrl = config.baseURL + config.url;
+    console.log('[httpClientCrud] Requête vers:', fullUrl);
+    console.log('[httpClientCrud] baseURL:', config.baseURL);
+    console.log('[httpClientCrud] url:', config.url);
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export interface NormalizedError {
   ok: false;
@@ -37,7 +60,7 @@ export type NormalizedResult<T = unknown> =
   | NormalizedError;
 
 // Interceptor de réponse: on normalise les erreurs dans error.normalized
-httpClient.interceptors.response.use(
+httpClientCrud.interceptors.response.use(
   (response) => response,
   (error: any) => {
     const status: number | null = error.response?.status ?? null;
@@ -95,6 +118,6 @@ export function wrapRequest<T = unknown>(
     });
 }
 
-export default httpClient;
+export default httpClientCrud;
 
 

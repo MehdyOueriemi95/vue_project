@@ -21,5 +21,10 @@ export default [
         path: "/users"
       }
     ]
+  },
+  {
+    text: "Posts",
+    path: "/posts",
+    icon: "home"
   }
   ];

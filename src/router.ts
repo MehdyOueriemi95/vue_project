@@ -4,14 +4,15 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "./views/home-page.vue";
 import Profile from "./views/profile-page.vue";
 import Users from "./views/users-page.vue";
+import Posts from "./views/post-page.vue";
 import defaultLayout from "./layouts/side-nav-inner-toolbar.vue";
 import simpleLayout from "./layouts/single-card.vue";
 
-function loadView(view) {
+function loadView(view: string) {
   return () => import (/* webpackChunkName: "login" */ `./views/${view}.vue`)
 }
 
-const router = new createRouter({
+const router = createRouter({
   routes: [
     {
       path: "/home",
@@ -39,6 +40,15 @@ const router = new createRouter({
         layout: defaultLayout
       },
       component: Users
+    },
+    {
+      path: "/posts",
+      name: "posts",
+      meta: {
+        requiresAuth: true,
+        layout: defaultLayout
+      },
+      component: Posts
     },
     {
       path: "/login-form",

@@ -14,9 +14,9 @@ export async function getUsers(loadOptions: any): Promise<UsersResult> {
    } }));
 }
 
-export async function getUserById(id: string): Promise<UsersResult> {
-  return wrapRequest(httpClient.get(`/users/${id}`));
-}
+//export async function getUserById(id: string): Promise<UsersResult> {
+//  return wrapRequest(httpClient.get(`/users/${id}`));
+//}
 
 export async function updateUser(id: string | number, data: any): Promise<UsersResult> {
   return wrapRequest(httpClient.put(`/users/${id}`, data));
