@@ -35,9 +35,7 @@ export default defineConfig({
           });
           proxy.on('proxyReq', (proxyReq, req) => {
             console.log('[Proxy Request]', req.method, req.url);
-            // Supprimer les headers qui pourraient causer des problèmes
-            proxyReq.removeHeader('origin');
-            proxyReq.removeHeader('referer');
+            console.log('[Proxy Request Headers]', JSON.stringify(req.headers, null, 2));
           });
           proxy.on('proxyRes', (proxyRes, req, res) => {
             console.log('[Proxy Response]', req.method, req.url, proxyRes.statusCode);

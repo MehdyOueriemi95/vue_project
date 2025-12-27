@@ -51,6 +51,15 @@ const router = createRouter({
       component: Posts
     },
     {
+      path: "/posts/create",
+      name: "create-post",
+      meta: {
+        requiresAuth: true,
+        layout: defaultLayout
+      },
+      component: loadView("create-post-form")
+    },
+    {
       path: "/login-form",
       name: "login-form",
       meta: {

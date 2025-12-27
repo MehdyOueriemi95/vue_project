@@ -1,8 +1,11 @@
 <template>
   <div>
-    <!-- En-tête de la page avec le titre -->
+    <!-- En-tête de la page avec le titre et le bouton de création -->
     <div class="title-block">
       <h2>Posts</h2>
+      <button class="create-button" @click="goToCreatePost">
+        + Créer un nouveau ticket
+      </button>
     </div>
 
     <!-- Grille de données DevExtreme pour afficher les posts -->
@@ -93,8 +96,9 @@ import { getUserById } from '@sdk';
 // Import des types et utilitaires DevExtreme pour la gestion des données
 import "devextreme-vue/common/data";
 import { CustomStore } from 'devextreme/common/data';
-// Import de ref depuis Vue pour créer des références réactives
+// Import de ref et useRouter depuis Vue pour créer des références réactives et la navigation
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 // Import des composants DevExtreme pour la grille de données
 import DxDataGrid, {
   DxColumn,
@@ -110,8 +114,16 @@ import DxDataGrid, {
 export default {
   // Fonction setup() : point d'entrée de la composition API de Vue 3
   setup() {
+    // Router pour la navigation entre les pages
+    const router = useRouter();
+
     // Variable réactive pour stocker les paramètres de requête (pagination, filtres, etc.)
     const queryParams = ref({});
+
+    // Fonction pour rediriger vers la page de création de post
+    const goToCreatePost = () => {
+      router.push({ name: 'create-post' });
+    };
 
     // Configuration de la source de données pour la grille DevExtreme
     const dataSourceConfig = {
@@ -128,6 +140,11 @@ export default {
           try {
             // Appel à l'API pour récupérer les posts avec les options de chargement
             const result = await getPosts(loadOptions);
+
+            console.log('=== RÉSULTAT GET POSTS ===');
+            console.log('Result OK:', result.ok);
+            console.log('Result data:', result.data);
+            console.log('==========================');
 
             // Vérification si la requête a échoué
             if (!result.ok) {
@@ -231,7 +248,8 @@ export default {
 
     // Retour des propriétés et méthodes exposées au template
     return {
-      dataSourceConfig
+      dataSourceConfig,
+      goToCreatePost
     };
   },
   // Déclaration des composants utilisés dans le template
@@ -259,5 +277,26 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+}
+
+/* Style pour le bouton de création de post */
+.create-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.create-button:hover {
+  background-color: #0056b3;
+}
+
+.create-button:active {
+  background-color: #004085;
 }
 </style>

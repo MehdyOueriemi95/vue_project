@@ -31,9 +31,13 @@ const httpClientCrud = axios.create({
 httpClientCrud.interceptors.request.use(
   (config) => {
     const fullUrl = config.baseURL + config.url;
-    console.log('[httpClientCrud] Requête vers:', fullUrl);
-    console.log('[httpClientCrud] baseURL:', config.baseURL);
-    console.log('[httpClientCrud] url:', config.url);
+    console.log('=== REQUÊTE HTTP ===');
+    console.log('[httpClientCrud] URL complète:', fullUrl);
+    console.log('[httpClientCrud] Méthode:', config.method?.toUpperCase());
+    console.log('[httpClientCrud] Headers:', JSON.stringify(config.headers, null, 2));
+    console.log('[httpClientCrud] Body (objet):', config.data);
+    console.log('[httpClientCrud] Body (JSON):', JSON.stringify(config.data, null, 2));
+    console.log('===================');
     return config;
   },
   (error) => {
@@ -61,8 +65,28 @@ export type NormalizedResult<T = unknown> =
 
 // Interceptor de réponse: on normalise les erreurs dans error.normalized
 httpClientCrud.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log('=== RÉPONSE SUCCÈS ===');
+    console.log('[httpClientCrud] Status:', response.status);
+    console.log('[httpClientCrud] Headers:', JSON.stringify(response.headers, null, 2));
+    console.log('[httpClientCrud] Data:', JSON.stringify(response.data, null, 2));
+    console.log('=====================');
+    return response;
+  },
   (error: any) => {
+    console.log('=== RÉPONSE ERREUR ===');
+    console.log('[httpClientCrud] Type d\'erreur:', error.name);
+    console.log('[httpClientCrud] Message:', error.message);
+    console.log('[httpClientCrud] Code:', error.code);
+    console.log('[httpClientCrud] Status:', error.response?.status);
+    console.log('[httpClientCrud] Status Text:', error.response?.statusText);
+    console.log('[httpClientCrud] Request URL:', error.config?.url);
+    console.log('[httpClientCrud] Request Method:', error.config?.method);
+    console.log('[httpClientCrud] Headers:', JSON.stringify(error.response?.headers, null, 2));
+    console.log('[httpClientCrud] Data:', JSON.stringify(error.response?.data, null, 2));
+    console.log('[httpClientCrud] Erreur complète:', error);
+    console.log('=====================');
+
     const status: number | null = error.response?.status ?? null;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const data = error.response?.data ?? null;
@@ -74,10 +98,10 @@ httpClientCrud.interceptors.response.use(
       message:
         (data && (data as any).message) ??
         error.message ??
-        'Erreur inattendue lors de l’appel HTTP.',
+        'Erreur inattendue lors de l\'appel HTTP.',
     };
 
-    // On attache la version normalisée à l’erreur pour les appels qui veulent inspecter finement
+    // On attache la version normalisée à l'erreur pour les appels qui veulent inspecter finement
     // (le SDK de plus haut niveau utilisera plutôt wrapRequest ci-dessous).
     // eslint-disable-next-line no-param-reassign
     (error as any).normalized = normalizedError;
