@@ -10,11 +10,17 @@ export type PostsResult = NormalizedResult<unknown>;
 //  - erreur: { ok: false, status, message, data }
 export async function getPosts(loadOptions: any): Promise<PostsResult> {
   // Ajouter un slash final pour éviter les redirections du serveur
-  return wrapRequest(httpClientCrud.get('/posts/', { headers: {
-    'X-Dg-Info': JSON.stringify(loadOptions)
-   } }));
+  return wrapRequest(httpClientCrud.get('/posts/', {
+    headers: {
+      'X-Dg-Info': JSON.stringify(loadOptions)
+    }
+  }));
 }
 
 export async function getUserById(id: string): Promise<PostsResult> {
   return wrapRequest(httpClientCrud.get(`/users/${id}`));
+}
+
+export async function getPostById(id: string): Promise<PostsResult> {
+  return wrapRequest(httpClientCrud.get(`/posts/${id}`));
 }
