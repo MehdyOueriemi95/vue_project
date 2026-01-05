@@ -20,8 +20,7 @@
       <dx-filter-row :visible="true" />
       <dx-group-panel :visible="true" />
       <dx-editing
-        :__mode="modeEditing"
-        mode="inline"
+        mode="row"
         :allow-updating="true"
         :allow-adding="true"
         :allow-deleting="true"
@@ -48,7 +47,6 @@ import { getUsers, getUserById, updateUser, insertUser, deleteUser } from '@sdk'
 import "devextreme-vue/common/data";
 import { CustomStore } from 'devextreme/common/data';
 import { ref } from 'vue';
-import { DxSelectBox } from 'devextreme-vue/select-box';
 import DxDataGrid, {
   DxColumn,
   DxFilterRow,
@@ -58,8 +56,6 @@ import DxDataGrid, {
   DxEditing,
   DxPager,
   DxPaging,
-  // type DxDataGridTypes,
-  type GridsEditMode,
 } from "devextreme-vue/data-grid";
 
 const priorities = [
@@ -69,21 +65,14 @@ const priorities = [
   { name: "Low", value: 1 }
 ];
 
-const editModes: GridsEditMode[] = [{ name: 'Form', value: 'form' }, { name: 'Inline', value: 'inline' }, { name: 'Popup', value: 'popup' }];
-const modeEditing = ref<GridsEditMode>(editModes[0]);
-
-const queryParams = ref<any>({});
-
-const onModeEditingChanged = (e: any) => {
-  modeEditing = e.value as GridsEditMode;
-};
+const queryParams = ref({});
 
 export default {
   setup() {
     const dataSourceConfig = {
       store: new CustomStore({
         key: "IDUTILISATEUR",
-        load: async (loadOptions: any) => {
+        load: async (loadOptions) => {
           queryParams.value = loadOptions;
           console.log('Load options:', loadOptions);
           console.log('Query params:', queryParams.value);
@@ -95,22 +84,22 @@ export default {
             throw error;
           }
         },
-        byKey: async (key: string | number) => {
+        byKey: async (key) => {
           console.log('Get by key:', key);
           const result = await getUserById(key.toString());
           return result.data;
         },
-        update: async (key: string | number, values: any) => {
+        update: async (key, values) => {
           console.log('Update:', key, values);
           const result = await updateUser(key.toString(), values);
           return result.data;
         },
-        insert: async (values: any) => {
+        insert: async (values) => {
           console.log('Insert:', values);
           const result = await insertUser(values);
           return result.data;
         },
-        remove: async (key: any) => {
+        remove: async (key) => {
           console.log('Remove:', key);
           const result = await deleteUser(key.toString());
           return result.data;
@@ -121,9 +110,6 @@ export default {
     return {
       dataSourceConfig,
       priorities,
-      editModes,
-      modeEditing,
-      onModeEditingChanged
     };
   },
   components: {
@@ -133,7 +119,6 @@ export default {
     DxScrolling,
     // DxLookup,
     DxGroupPanel,
-    DxSelectBox,
     DxEditing,
     DxPager,
     DxPaging
