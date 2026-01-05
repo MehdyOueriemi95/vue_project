@@ -10,9 +10,9 @@
     <dx-data-grid
       class="dx-card content-block"
       :data-source="dataSourceConfig"
-      :focused-row-index="0"
-      :show-borders="false"
+      :focused-row-index="focusedRowIndex"
       :focused-row-enabled="true"
+      :show-borders="false"
       :column-auto-width="true"
       :column-hiding-enabled="true"
       :remote-operations="true"
@@ -102,18 +102,29 @@ export default {
     // Variable réactive pour stocker les paramètres de requête (pagination, filtres, etc.)
     const queryParams = ref({});
 
+    // Garder l'ID du post sélectionné
+    const focusedPostId = ref<number | null>(
+      sessionStorage.getItem("focusedPostId")
+        ? Number(sessionStorage.getItem("focusedPostId"))
+        : null
+    );
+    const focusedRowIndex = ref<number | null>(null);
+
     // Fonction pour rediriger vers la page de création de post
     const goToCreatePost = () => {
       router.push({ name: "create-post" });
     };
 
     const viewPostDetail = (e: any) => {
-      console.log(e.data.id);
       if (!e.data) return;
 
       // Vérification : e.data.id existe
       const postId = e.data.id;
       if (!postId) return;
+
+      // Sauvegarde l’index de la ligne cliquée
+      focusedPostId.value = postId;
+      sessionStorage.setItem("focusedPostId", postId.toString());
 
       router.push({
         name: "post-detail",
@@ -231,6 +242,10 @@ export default {
               })
             );
 
+            // Retrouver l'index de la ligne sélectionnée
+            const index = enrichedData.findIndex((post) => post.id === focusedPostId.value);
+            focusedRowIndex.value = index >= 0 ? index : null;
+
             // Retourner le format attendu par DevExtreme
             return {
               data: enrichedData,
@@ -250,6 +265,7 @@ export default {
       dataSourceConfig,
       goToCreatePost,
       viewPostDetail,
+      focusedRowIndex,
     };
   },
   // Déclaration des composants utilisés dans le template
