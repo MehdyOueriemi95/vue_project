@@ -9,7 +9,7 @@ import defaultLayout from "./layouts/side-nav-inner-toolbar.vue";
 import simpleLayout from "./layouts/single-card.vue";
 
 function loadView(view: string) {
-  return () => import (/* webpackChunkName: "login" */ `./views/${view}.vue`)
+  return () => import(/* webpackChunkName: "login" */ `./views/${view}.vue`)
 }
 
 const router = createRouter({
@@ -49,6 +49,15 @@ const router = createRouter({
         layout: defaultLayout
       },
       component: Posts
+    },
+    {
+      path: "/posts/:id",
+      name: "post-detail",
+      meta: {
+        requiresAuth: true,
+        layout: defaultLayout
+      },
+      component: loadView("post-detail")
     },
     {
       path: "/posts/create",
