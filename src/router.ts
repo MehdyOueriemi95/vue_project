@@ -111,6 +111,15 @@ const router = createRouter({
     {
       path: "/:pathMatch(.*)*",
       redirect: "/home"
+    },
+    {
+      path: "/card-view",
+      name: "card-view",
+      meta: {
+        requiresAuth: true,
+        layout: defaultLayout
+      },
+      component: loadView("card-view"),
     }
   ],
   history: createWebHashHistory()

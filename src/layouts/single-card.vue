@@ -46,7 +46,7 @@ export default {
   height: 100%;
 
   .dx-card {
-    width: 360px;
+    // width: 360px;
     margin: auto auto;
     padding: 24px;
     flex-grow: 0;

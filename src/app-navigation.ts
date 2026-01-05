@@ -19,6 +19,10 @@ export default [
       {
         text: "Users",
         path: "/users"
+      },
+      {
+        text: "Card View",
+        path: "/card-view",
       }
     ]
   },
