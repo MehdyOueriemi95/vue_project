@@ -15,9 +15,14 @@
       content-template="popup-content"
     >
       <template #popup-content>
-        <p>Êtes-vous sûr de vouloir supprimer ce post ?</p>
-        <DxButton text="Oui" type="normal" icon="check" @click="deletePost" />
-        <DxButton text="Non" type="normal" icon="close" @click="togglePopupDelete" />
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+          <p>Êtes-vous sûr de vouloir supprimer ce post ?</p>
+
+          <div style="display: flex; gap: 1em">
+            <DxButton text="Oui" type="success" icon="check" @click="deletePost" />
+            <DxButton text="Non" type="danger" icon="close" @click="togglePopupDelete" />
+          </div>
+        </div>
       </template>
     </DxPopup>
 
@@ -26,7 +31,7 @@
       <DxButton
         style="float: right; margin-left: 0.5em"
         text="Supprimer"
-        type="normal"
+        type="danger"
         icon="trash"
         @click="togglePopupDelete"
       />
@@ -35,7 +40,7 @@
       <DxButton
         style="float: right"
         :text="editMode ? 'Sauvegarder' : 'Modifier'"
-        type="normal"
+        :type="editMode ? 'success' : 'default'"
         icon="edit"
         @click="toggleEdit"
       />
