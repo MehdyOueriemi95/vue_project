@@ -69,12 +69,13 @@ export default {
 
 <style scoped>
 .post-card {
+  background-color: white;
   max-width: 800px;
   margin: 24px auto;
   padding: 24px;
   border-radius: 8px;
   border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .post-image img {
