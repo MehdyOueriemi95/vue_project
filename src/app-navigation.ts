@@ -23,7 +23,15 @@ export default [
       {
         text: "Card View",
         path: "/card-view",
-      }
+      },
+      {
+        text: "Tab Panel",
+        path: "/tabPanel",
+      },
+      {
+        text: "Chat",
+        path: "/chat",
+      },
     ]
   },
   {

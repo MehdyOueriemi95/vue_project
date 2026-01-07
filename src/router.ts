@@ -13,60 +13,43 @@ function loadView(view: string) {
 }
 
 const router = createRouter({
+  history: createWebHashHistory(),
   routes: [
     {
       path: "/home",
       name: "home",
-      meta: {
-        requiresAuth: true,
-        layout: defaultLayout
-      },
-      component: Home
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: Home,
     },
     {
       path: "/profile",
       name: "profile",
-      meta: {
-        requiresAuth: true,
-        layout: defaultLayout
-      },
-      component: Profile
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: Profile,
     },
     {
       path: "/users",
       name: "users",
-      meta: {
-        requiresAuth: true,
-        layout: defaultLayout
-      },
-      component: Users
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: Users,
     },
     {
       path: "/posts",
       name: "posts",
-      meta: {
-        requiresAuth: true,
-        layout: defaultLayout
-      },
-      component: Posts
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: Posts,
     },
     {
       path: "/posts/:id",
       name: "post-detail",
-      meta: {
-        requiresAuth: true,
-        layout: defaultLayout
-      },
-      component: loadView("post-detail")
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: loadView("post-detail"),
     },
     {
       path: "/posts/create",
       name: "create-post",
-      meta: {
-        requiresAuth: true,
-        layout: defaultLayout
-      },
-      component: loadView("create-post-form")
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: loadView("create-post-form"),
     },
     {
       path: "/login-form",
@@ -74,9 +57,9 @@ const router = createRouter({
       meta: {
         requiresAuth: false,
         layout: simpleLayout,
-        title: "Sign In"
+        title: "Sign In",
       },
-      component: loadView("login-form")
+      component: loadView("login-form"),
     },
     {
       path: "/reset-password",
@@ -85,9 +68,10 @@ const router = createRouter({
         requiresAuth: false,
         layout: simpleLayout,
         title: "Reset Password",
-        description: "Please enter the email address that you used to register, and we will send you a link to reset your password via Email."
+        description:
+          "Please enter the email address that you used to register, and we will send you a link to reset your password via Email.",
       },
-      component: loadView("reset-password-form")
+      component: loadView("reset-password-form"),
     },
     {
       path: "/create-account",
@@ -95,7 +79,7 @@ const router = createRouter({
       meta: {
         requiresAuth: false,
         layout: simpleLayout,
-        title: "Sign Up"
+        title: "Sign Up",
       },
       component: loadView("create-account-form"),
     },
@@ -105,33 +89,35 @@ const router = createRouter({
       meta: {
         requiresAuth: false,
         layout: simpleLayout,
-        title: "Change Password"
+        title: "Change Password",
       },
-      component: loadView("change-password-form")
+      component: loadView("change-password-form"),
     },
-    {
-      path: "/",
-      redirect: "/home"
-    },
-    {
-      path: "/recovery",
-      redirect: "/home"
-    },
-    {
-      path: "/:pathMatch(.*)*",
-      redirect: "/home"
-    },
+
+    // Redirects
+    { path: "/", redirect: "/home" },
+    { path: "/recovery", redirect: "/home" },
+    { path: "/:pathMatch(.*)*", redirect: "/home" },
+
     {
       path: "/card-view",
       name: "card-view",
-      meta: {
-        requiresAuth: true,
-        layout: defaultLayout
-      },
+      meta: { requiresAuth: true, layout: defaultLayout },
       component: loadView("card-view"),
-    }
+    },
+    {
+      path: "/tabPanel",
+      name: "tabPanel",
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: loadView("tabPanel"),
+    },
+    {
+      path: "/chat",
+      name: "chat",
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: loadView("chat"),
+    },
   ],
-  history: createWebHashHistory()
 });
 
 router.beforeEach((to, from, next) => {

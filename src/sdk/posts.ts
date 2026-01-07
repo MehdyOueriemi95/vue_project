@@ -24,20 +24,3 @@ export async function getUserById(id: string): Promise<PostsResult> {
 export async function getPostById(id: string): Promise<PostsResult> {
   return wrapRequest(httpClientCrud.get(`/posts/${id}`));
 }
-
-export async function updatePost(
-  id: string,
-  title: string,
-  content: string
-): Promise<PostsResult> {
-  return wrapRequest(
-    httpClientCrud.patch(`/posts/${id}`, {
-      title,
-      content
-    })
-  );
-}
-
-export async function deletePostById(id: string): Promise<PostsResult> {
-  return wrapRequest(httpClientCrud.delete(`/posts/${id}`));
-}

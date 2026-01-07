@@ -87,8 +87,10 @@ import DxDataGrid, {
   DxFilterRow,
   DxGroupPanel,
   DxScrolling,
+  // DxLookup,
   DxPager,
   DxPaging,
+  // type DxDataGridTypes,
 } from "devextreme-vue/data-grid";
 
 export default {
@@ -272,6 +274,7 @@ export default {
     DxColumn,
     DxFilterRow,
     DxScrolling,
+    // DxLookup,
     DxGroupPanel,
     DxPager,
     DxPaging,
