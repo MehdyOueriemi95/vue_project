@@ -19,13 +19,7 @@
 <script>
 import AppFooter from "./components/app-footer.vue";
 import { sizes, subscribe, unsubscribe } from "./utils/media-query";
-import {
-  getCurrentInstance,
-  reactive,
-  onMounted,
-  onBeforeUnmount,
-  computed
-} from "vue";
+import { getCurrentInstance, reactive, onMounted, onBeforeUnmount, computed } from "vue";
 
 function getScreenSizeInfo() {
   const screenSizes = sizes();
@@ -33,13 +27,13 @@ function getScreenSizeInfo() {
   return {
     isXSmall: screenSizes["screen-x-small"],
     isLarge: screenSizes["screen-large"],
-    cssClasses: Object.keys(screenSizes).filter(cl => screenSizes[cl])
+    cssClasses: Object.keys(screenSizes).filter((cl) => screenSizes[cl]),
   };
 }
 
 export default {
   components: {
-    AppFooter
+    AppFooter,
   },
   setup() {
     const vm = getCurrentInstance();
@@ -48,9 +42,23 @@ export default {
     const screen = reactive({ getScreenSizeInfo: {} });
     screen.getScreenSizeInfo = getScreenSizeInfo();
 
-    function screenSizeChanged () {
+    function screenSizeChanged() {
       screen.getScreenSizeInfo = getScreenSizeInfo();
     }
+
+    const observer = new MutationObserver(() => {
+      const el = document.querySelector('[data-name="Layer 1"]')?.closest("div");
+
+      if (el) {
+        el.click();
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
 
     onMounted(() => {
       subscribe(screenSizeChanged);
@@ -67,9 +75,9 @@ export default {
     return {
       title,
       screen,
-      cssClasses
+      cssClasses,
     };
-  }
+  },
 };
 </script>
 
