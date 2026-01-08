@@ -117,6 +117,25 @@ const router = createRouter({
       meta: { requiresAuth: true, layout: defaultLayout },
       component: loadView("chat"),
     },
+    {
+      path : "/login",
+      name : "login",
+      meta : { requiresAuth : true, layout : defaultLayout },
+      component : loadView("login"),
+    },
+    {
+      path : "/home_page_operateur",
+      name : "home page operateur",
+      meta : { requiresAuth : true, layout : defaultLayout },
+      component : loadView("home_page_operateur"),
+    },
+    {
+      path : "/toile_ecran_vide",
+      name : "toile_ecran_vide",
+      meta : { requiresAuth : true, layout : defaultLayout },
+      component : loadView("toile_ecran_vide"),
+    },
+
   ],
 });
 

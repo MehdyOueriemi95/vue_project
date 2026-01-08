@@ -32,6 +32,18 @@ export default [
         text: "Chat",
         path: "/chat",
       },
+      {
+        text : "login",
+        path : "/login"
+      },
+      {
+        text : "home page operateur",
+        path : "/home_page_operateur"
+      },
+      {
+        text : "toile_ecran_vide",
+        path : "/toile_ecran_vide"
+      },
     ]
   },
   {
