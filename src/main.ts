@@ -3,6 +3,8 @@ import './themes/generated/theme.base.dark.css';
 import './themes/generated/theme.base.css';
 import './themes/generated/theme.additional.dark.css';
 import './themes/generated/theme.additional.css';
+// Import des styles SCSS globaux
+import './styles/styles.scss';
 import { createApp }  from "vue";
 import router from "./router";
 import themes from "devextreme/ui/themes";

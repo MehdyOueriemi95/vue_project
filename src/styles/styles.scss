@@ -1,0 +1,15 @@
+// Fichier SCSS global - Styles communs à toute l'application
+// Ce fichier est importé dans main.ts
+
+// Import des variables CSS (règles :root) - définit les variables CSS globales
+@use './variables.scss';
+
+// Import des styles DevExtreme
+@use './dx-styles.scss';
+
+// Vous pouvez ajouter ici d'autres styles globaux
+// Par exemple :
+// - Reset CSS
+// - Typographie globale
+// - Classes utilitaires
+// - Animations communes

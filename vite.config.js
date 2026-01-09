@@ -16,6 +16,15 @@ export default defineConfig({
       '@sdk': fileURLToPath(new URL('./src/sdk', import.meta.url))
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Précharger automatiquement les mixins SCSS dans tous les composants
+        // Utilisation de @use pour les mixins uniquement (pas de règles CSS)
+        additionalData: `@use "@/styles/mixins.scss" as *;`
+      }
+    }
+  },
   server: {
     proxy: {
       // Proxy pour contourner CORS en développement

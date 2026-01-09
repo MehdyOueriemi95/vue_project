@@ -119,8 +119,10 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../variables.scss" as *;
-@use "../dx-styles.scss" as *;
+// Les mixins sont déjà préchargés automatiquement via vite.config.js
+// Les variables CSS sont déjà définies globalement dans styles.scss
+// On importe seulement dx-styles.scss pour accéder à $side-panel-min-width
+@use "../styles/dx-styles.scss" as *;
 
 .dx-swatch-additional, .dx-swatch-additional-dark {
   &.side-navigation-menu {

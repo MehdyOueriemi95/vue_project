@@ -201,7 +201,9 @@ import PingTest from '../components/ping-test.vue';
 </script>
 
 <style lang="scss">
-@use "../variables.scss" as *;
+// Les mixins sont déjà préchargés automatiquement via vite.config.js
+// Les variables CSS sont déjà définies globalement dans styles.scss
+// On peut donc utiliser directement les variables CSS sans import
 
 .logos-container {
   margin: 0 0 40px 0;
