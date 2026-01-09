@@ -7,7 +7,12 @@
         :is-x-small="screen.getScreenSizeInfo.isXSmall"
         :is-large="screen.getScreenSizeInfo.isLarge"
       >
-        <router-view></router-view>
+        <!-- ✅ Conteneur stable en flex -->
+        <div class="page-content">
+          <!-- ✅ Force remount à chaque navigation -->
+          <router-view :key="$route.fullPath"></router-view>
+        </div>
+
         <template #footer>
           <app-footer />
         </template>
@@ -85,14 +90,15 @@ export default {
 html,
 body {
   margin: 0px;
-  min-height: 100%;
   height: 100%;
+  min-height: 100%;
 }
 
 #root {
   height: 100%;
 }
 
+/* ✅ important en flex */
 * {
   box-sizing: border-box;
 }
@@ -102,5 +108,12 @@ body {
   height: 100%;
   width: 100%;
   min-width: 320px;
+}
+
+/* ✅ le contenu doit pouvoir s'étirer en flex */
+.page-content {
+  flex: 1 1 auto;
+  min-width: 0;   /* ✅ évite les comportements "bizarres" en flex */
+  min-height: 0;  /* ✅ idem pour les hauteurs */
 }
 </style>
