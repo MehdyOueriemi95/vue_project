@@ -1,14 +1,16 @@
 <template>
   <div>
     <DxButton text="Retour" type="normal" icon="arrowleft" @click="goBack" />
+
+    <!-- On utilise v-if pour détruire l'éditeur avant de changer de page -->
     <DxHtmlEditor
+      ref="editorRef"
       class="editor-container"
       v-model="htmlContent"
       :placeholder="placeholderText"
       :height="500"
       :toolbar="toolbarOptions"
     />
-    <DxButton text="Ajouter une vidéo YouTube" icon="video" @click="insertYoutube" />
   </div>
 </template>
 
@@ -19,11 +21,13 @@ import { DxButton, DxHtmlEditor } from "devextreme-vue";
 
 // router
 const router = useRouter();
-const goBack = () => router.push("/home");
+
+const goBack = () => {
+  router.push("/home");
+};
 
 // v-model pour l'éditeur
 const htmlContent = ref("");
-
 const placeholderText = "Écris quelque chose ici…";
 
 // options de la toolbar
@@ -42,23 +46,6 @@ const toolbarOptions = ref({
     "redo",
   ],
 });
-
-const insertYoutube = () => {
-  const url = prompt("Lien YouTube :");
-  if (!url) return;
-
-  const embedUrl = url.replace("watch?v=", "embed/");
-
-  htmlContent.value += `
-    <iframe
-      width="560"
-      height="315"
-      src="${embedUrl}"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-  `;
-};
 </script>
 
 <style>
