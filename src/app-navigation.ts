@@ -33,16 +33,24 @@ export default [
         path: "/chat",
       },
       {
-        text : "login",
-        path : "/login"
+        text: "login",
+        path: "/login"
       },
       {
-        text : "home page operateur",
-        path : "/home_page_operateur"
+        text: "home page operateur",
+        path: "/home_page_operateur"
       },
       {
-        text : "toile_ecran_vide",
-        path : "/toile_ecran_vide"
+        text: "toile_ecran_vide",
+        path: "/toile_ecran_vide"
+      },
+      {
+        text: "QR Code",
+        path: "/qrcode"
+      },
+      {
+        text: "Barcode",
+        path: "/barcode"
       },
     ]
   },
@@ -51,4 +59,4 @@ export default [
     path: "/posts",
     icon: "home"
   }
-  ];
+];

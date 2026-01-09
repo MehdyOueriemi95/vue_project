@@ -16,8 +16,11 @@
     "axios": "^1.13.2",
     "devextreme": "25.1.7",
     "devextreme-vue": "25.1.7",
+    "jsbarcode": "^3.12.3",
+    "qrcode.vue": "^3.6.0",
     "sass-embedded": "^1.85.1",
     "vue": "^3.5.17",
+    "vue-jsbarcode": "^1.0.2",
     "vue-router": "^4.0.1"
   },
   "devDependencies": {
