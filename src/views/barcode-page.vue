@@ -1,3 +1,4 @@
+<!-- npm install jsbarcode -->
 <template>
   <div>
     <DxButton text="Retour" type="normal" icon="arrowleft" @click="goBack" />

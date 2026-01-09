@@ -1,3 +1,4 @@
+<!-- npm install qrcode.vue -->
 <template>
   <div>
     <DxButton text="Retour" type="normal" icon="arrowleft" @click="goBack" />
