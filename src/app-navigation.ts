@@ -52,6 +52,10 @@ export default [
         text: "Barcode",
         path: "/barcode"
       },
+      {
+        text: "Wysiwyg",
+        path: "/wysiwyg"
+      },
     ]
   },
   {

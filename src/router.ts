@@ -147,6 +147,12 @@ const router = createRouter({
       meta: { requiresAuth: true, layout: defaultLayout },
       component: loadView("barcode-page"),
     },
+    {
+      path: "/wysiwyg",
+      name: "wysiwyg-page",
+      meta: { requiresAuth: true, layout: defaultLayout },
+      component: loadView("wysiwyg-page"),
+    },
 
   ],
 });
