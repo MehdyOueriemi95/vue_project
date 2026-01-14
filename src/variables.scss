@@ -6,6 +6,8 @@
 @use "./themes/generated/variables.additional.scss" as variablesAdditional;
 @use "./themes/generated/variables.additional.dark.scss" as variablesAdditionalDark;
 
+
+
 @mixin theme-variables($theme-name) {
   $theme: meta.module-variables($theme-name);
   $base-text-color: map.get($theme, 'base-text-color');
